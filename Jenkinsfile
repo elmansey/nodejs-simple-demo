@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    tools {
+        NodeJS 'NodeJS-20.0.0'
+    }
     stages {
         stage("Verify Branch"){
             steps {
