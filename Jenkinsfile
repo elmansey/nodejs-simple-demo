@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools {
-        NodeJS 'NodeJS-20.0.0'
+        nodejs "nodejs-18.8.0"
     }
     stages {
         stage("Verify Branch"){
