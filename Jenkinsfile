@@ -10,7 +10,7 @@ pipeline{
             steps {
                 sh 'docker images -a'
                 sh """ 
-                  docker build -t elmansey/node-app-jenkins
+                  docker build -t elmansey/node-app-jenkins .
                   docker images -a 
                 """
             }
