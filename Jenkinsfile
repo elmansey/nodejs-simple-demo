@@ -37,5 +37,16 @@ pipeline{
                 }
             }
         }
+        stage("Push Container") {
+            steps {
+                echo "$WORKSPACE"
+                // script block to run groovy code 
+                script { 
+                    docker.withRegistry('https://index.docker.io/v1/','dockerhub_credentials')
+                    def image = docker.build('elmansey/node-app-jenkins:latest')
+                    image.push()
+                }
+            }
+        }
     }
 }
