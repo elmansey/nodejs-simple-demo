@@ -15,5 +15,13 @@ pipeline{
                 """
             }
         }
+        stage("Run app testing"){
+            steps {
+                sh """ 
+                   npm install
+                   npm run test
+                """
+            }
+        }
     }
 }
