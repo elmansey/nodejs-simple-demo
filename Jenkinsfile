@@ -40,11 +40,12 @@ pipeline{
         stage("Push Container") {
             steps {
                withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials',usernameVariable: 'DOCKER_USERNAME',passwordVariable: 'DOCKER_PASS')]){
-                  sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USERNAME -p --password-stdin'
+                  sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USERNAME  --password-stdin'
+                  sh 'docker tag node-app-jenkins elmansey/node-app-jenkins:latest'
+                  sh 'docker push elmansey/node-app-jenkins:latest'
                }
                
-               sh 'docker tag node-app-jenkins elmansey/node-app-jenkins:latest'
-               sh 'docker push elmansey/node-app-jenkins:latest'
+
             }
         }
     }
