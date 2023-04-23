@@ -3,8 +3,18 @@ const app = express()
 const port = 3000
 app.get('/', (req, res) => {
     res.send("Hello, world!")
-  })
-  
-app.listen(port, () => {
-  console.log(`app running and listening at ${port}`)
 })
+
+app.listen(port, () => {
+    console.log(`app running and listening at ${port}`)
+})
+
+function add(a, b) {
+  return a + b;
+}
+  
+module.exports = {
+  add: add
+};
+
+
