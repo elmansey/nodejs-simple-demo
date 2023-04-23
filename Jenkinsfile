@@ -13,7 +13,7 @@ pipeline{
             steps {
                 sh 'docker images -a'
                 sh """ 
-                  docker build -t elmansey/node-app-jenkins .
+                  docker build -t node-app-jenkins .
                   docker images -a 
                 """
             }
@@ -39,14 +39,12 @@ pipeline{
         }
         stage("Push Container") {
             steps {
-                echo "$WORKSPACE"
-                // script block to run groovy code 
-                script { 
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub_credentials') {
-                        def image = docker.build('elmansey/node-app-jenkins:latest')
-                        image.push()
-                    }
-                }
+               withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials',usernameVariable: 'DOCKER_USERNAME',passwordVariable: 'DOCKER_PASS')]){
+                  sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USERNAME -p --password-stdin'
+               }
+               
+               sh 'docker tag node-app-jenkins elmansey/node-app-jenkins:latest'
+               sh 'docker push elmansey/node-app-jenkins:latest'
             }
         }
     }
