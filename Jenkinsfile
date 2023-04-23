@@ -25,6 +25,17 @@ pipeline{
                    npm run test
                 """
             }
+            post{
+                always{
+                    echo "finish :D"
+                }
+                success{
+                    echo "the testing running successful "
+                }
+                failure{
+                    echo "the test was failed"
+                }
+            }
         }
     }
 }
